@@ -188,6 +188,23 @@ app.patch("/students/city/:id", (req, res) => {
   });
 });
 
+app.get("/students/search", (req, res) => {
+  const { name } = req.query;
+  const { authorization } = req.headers;
+
+  if (authorization != "token123") {
+    return res.json({
+      success: false,
+      message: "Unauthorized",
+    });
+  }
+
+  res.json({
+    success: true,
+    message: `You are searching for ${name}`,
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
